@@ -3,12 +3,20 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-	public float movementForce = 10;
+	public float movementForce = 1000;
 	public float rotation = 100;
+	public Rigidbody rb;
+	public ParticleSystem leftEngine;
+	public ParticleSystem rightEngine;
 
-	void Update () {
+	void FixedUpdate () {
 		if(Input.GetKey("w")) {
-			transform.Translate(Vector3.up * -movementForce * Time.deltaTime, Space.Self);
+			rb.AddForce(transform.up * -movementForce * Time.deltaTime);
+			leftEngine.Play();
+			rightEngine.Play();
+		} else {
+			leftEngine.Stop();
+			rightEngine.Stop();
 		}
 
 		if(Input.GetKey("a")) {
